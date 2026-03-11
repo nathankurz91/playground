@@ -614,8 +614,6 @@ const EMOJI_OPTIONS = [
 const today = new Date();
 let currentYear  = today.getFullYear();
 let currentMonth = today.getMonth(); // 0-indexed
-const MIN_YEAR   = today.getFullYear();
-const MIN_MONTH  = today.getMonth();
 
 function monthKey(y, m) { return `budget_${y}_${String(m+1).padStart(2,'0')}`; }
 
@@ -644,13 +642,9 @@ const MONTHS = ['January','February','March','April','May','June',
 
 function updateMonthLabel() {
   document.getElementById('month-label').textContent = `${MONTHS[currentMonth]} ${currentYear}`;
-  const isMin = (currentYear === MIN_YEAR && currentMonth === MIN_MONTH);
-  document.getElementById('prev-month').style.opacity = isMin ? '0.3' : '1';
-  document.getElementById('prev-month').style.pointerEvents = isMin ? 'none' : 'auto';
 }
 
 document.getElementById('prev-month').addEventListener('click', () => {
-  if (currentYear === MIN_YEAR && currentMonth === MIN_MONTH) return;
   currentMonth--;
   if (currentMonth < 0) { currentMonth = 11; currentYear--; }
   data = loadMonthData(currentYear, currentMonth);
